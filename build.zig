@@ -67,6 +67,7 @@ const config_values = .{
 const library_sources = .{
     "src/address.c",
     "src/blob.c",
+    "src/bundle.c",
     "src/message.c",
     "src/method.c",
     "src/pattern_match.c",
