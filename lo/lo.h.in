@@ -16,6 +16,7 @@
 
 #ifndef LO_H
 #define LO_H
+#endif
 
 #ifdef __cplusplus
 extern "C" {
