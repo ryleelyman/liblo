@@ -44,7 +44,6 @@ pub fn build(b: *std.Build) void {
     lib.addIncludePath("src");
     lib.addIncludePath(".");
     lib.defineCMacro("HAVE_CONFIG_H", "1");
-    lib.defineCMacro("PRINTF_LL", "\"ll\"");
     lib.addCSourceFiles(&library_sources, &.{"-std=c11"});
     lib.step.dependOn(&config_h.step);
     lib.step.dependOn(&lo_endian_h.step);
@@ -62,6 +61,7 @@ const config_values = .{
     .HAVE_INET_PTON = 1,
     .HAVE_LIBPTHREAD = 1,
     .ENABLE_THREADS = 1,
+    .PRINTF_LL = "ll",
 };
 
 const library_sources = .{
