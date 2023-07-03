@@ -10,6 +10,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    const t = lib.target_info.target;
+    if (t.os.tag == .linux) {
+        lib.defineCMacro("_BSD_SOURCE", "1");
+        lib.linkLibC();
+    }
 
     const config_h = b.addConfigHeader(.{
         .style = .{ .cmake = .{
@@ -30,7 +35,6 @@ pub fn build(b: *std.Build) void {
     });
     lib.addConfigHeader(lo_h);
     lib.installConfigHeader(lo_h, .{});
-
     const lo_endian_h = b.addConfigHeader(.{
         .style = .{ .cmake = .{
             .path = "lo/lo_endian.h.in",
@@ -44,7 +48,6 @@ pub fn build(b: *std.Build) void {
     lib.addIncludePath("src");
     lib.addIncludePath(".");
     lib.defineCMacro("HAVE_CONFIG_H", "1");
-    lib.defineCMacro("PRINTF_LL", "\"ll\"");
     lib.addCSourceFiles(&library_sources, &.{"-std=c11"});
     lib.step.dependOn(&config_h.step);
     lib.step.dependOn(&lo_endian_h.step);
@@ -62,20 +65,21 @@ const config_values = .{
     .HAVE_INET_PTON = 1,
     .HAVE_LIBPTHREAD = 1,
     .ENABLE_THREADS = 1,
+    .PRINTF_LL = "ll",
 };
 
 const library_sources = .{
     "src/address.c",
-    "src/blob.c",
-    "src/bundle.c",
-    "src/message.c",
-    "src/method.c",
-    "src/pattern_match.c",
-    "src/send.c",
-    "src/server.c",
-    "src/timetag.c",
-    "src/version.c",
-    "src/server_thread.c",
+    //"src/blob.c",
+    //"src/bundle.c",
+    //"src/message.c",
+    //"src/method.c",
+    //"src/pattern_match.c",
+    //"src/send.c",
+    //"src/server.c",
+    //"src/timetag.c",
+    //"src/version.c",
+    //"src/server_thread.c",
 };
 
 const library_headers = .{

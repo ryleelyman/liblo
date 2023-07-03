@@ -268,4 +268,3 @@ void lo_version(char *verstr, int verstr_size,
 }
 #endif
 
-#endif
