@@ -6,7 +6,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const lib = b.addStaticLibrary(.{
-        .name = "lo",
+        .name = "liblo",
         .target = target,
         .optimize = optimize,
     });
@@ -70,16 +70,16 @@ const config_values = .{
 
 const library_sources = .{
     "src/address.c",
-    //"src/blob.c",
-    //"src/bundle.c",
-    //"src/message.c",
-    //"src/method.c",
-    //"src/pattern_match.c",
-    //"src/send.c",
-    //"src/server.c",
-    //"src/timetag.c",
-    //"src/version.c",
-    //"src/server_thread.c",
+    "src/blob.c",
+    "src/bundle.c",
+    "src/message.c",
+    "src/method.c",
+    "src/pattern_match.c",
+    "src/send.c",
+    "src/server.c",
+    "src/timetag.c",
+    "src/version.c",
+    "src/server_thread.c",
 };
 
 const library_headers = .{
