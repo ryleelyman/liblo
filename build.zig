@@ -10,6 +10,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    const t = lib.target_info.target;
+    if (t.os.tag == .linux) {
+        lib.defineCMacro("_BSD_SOURCE", "1");
+        lib.linkLibC();
+    }
 
     const config_h = b.addConfigHeader(.{
         .style = .{ .cmake = .{
@@ -30,7 +35,6 @@ pub fn build(b: *std.Build) void {
     });
     lib.addConfigHeader(lo_h);
     lib.installConfigHeader(lo_h, .{});
-
     const lo_endian_h = b.addConfigHeader(.{
         .style = .{ .cmake = .{
             .path = "lo/lo_endian.h.in",
@@ -66,16 +70,16 @@ const config_values = .{
 
 const library_sources = .{
     "src/address.c",
-    "src/blob.c",
-    "src/bundle.c",
-    "src/message.c",
-    "src/method.c",
-    "src/pattern_match.c",
-    "src/send.c",
-    "src/server.c",
-    "src/timetag.c",
-    "src/version.c",
-    "src/server_thread.c",
+    //"src/blob.c",
+    //"src/bundle.c",
+    //"src/message.c",
+    //"src/method.c",
+    //"src/pattern_match.c",
+    //"src/send.c",
+    //"src/server.c",
+    //"src/timetag.c",
+    //"src/version.c",
+    //"src/server_thread.c",
 };
 
 const library_headers = .{
