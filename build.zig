@@ -49,6 +49,7 @@ pub fn build(b: *std.Build) void {
     lib.addIncludePath(".");
     lib.defineCMacro("HAVE_CONFIG_H", "1");
     lib.addCSourceFiles(&library_sources, &.{"-std=c11"});
+    for (library_headers) |header| lib.installHeader(header, header);
     lib.step.dependOn(&config_h.step);
     lib.step.dependOn(&lo_endian_h.step);
     lib.step.dependOn(&lo_h.step);
@@ -82,7 +83,7 @@ const library_sources = .{
     "src/server_thread.c",
 };
 
-const library_headers = .{
+const library_headers: []const []const u8 = &.{
     "lo/lo_errors.h",
     "lo/lo_lowlevel.h",
     "lo/lo_macros.h",
