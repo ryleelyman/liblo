@@ -45,8 +45,8 @@ pub fn build(b: *std.Build) void {
     });
     lib.addConfigHeader(lo_endian_h);
     lib.installConfigHeader(lo_endian_h, .{});
-    lib.addIncludePath("src");
-    lib.addIncludePath(".");
+    lib.addIncludePath(.{ .path = "src" });
+    lib.addIncludePath(.{ .path = "." });
     lib.defineCMacro("HAVE_CONFIG_H", "1");
     lib.addCSourceFiles(&library_sources, &.{"-std=c11"});
     for (library_headers) |header| lib.installHeader(header, header);
